@@ -14,41 +14,54 @@ const equalsBut = document.querySelector('#equals');
 const numButtons = document.querySelectorAll('.numButton');
 const mainLine = document.querySelector('#mainLine');
 const topLine = document.querySelector('#topLine');
+const plusSign = document.querySelector('#plusSign');
+const minusSign = document.querySelector('#minusSign');
+const multiplySign = document.querySelector('#multiplySign');
+const divideSign = document.querySelector('#divideSign');
+
 
 tempArray = [];
-
+result = 0
+function roundToTwo(num) {
+    return +(Math.round(num + 'e+2') + 'e-2');
+}
 
 function add(a,b){
-    return a + b;
+    result = a+b;
+    result = roundToTwo(result);
 };
 function subtract(a,b){
-    return a - b;
+    result = a-b;
+    result = roundToTwo(result);
 };
 function multiply(a, b){
-    return a * b;
+    result = a*b;
+    result = roundToTwo(result);
 };
 function divide(a, b){
-    return a / b;
+    result = a/b;
+    result = roundToTwo(result);
 };
 
 function operate(operandOne, operator, operandTwo){
-    if (operator == '+'){
+    if (operator === '+'){
         add(operandOne, operandTwo);
     }
-    else if (operator == '-'){
+    else if (operator === '-'){
         subtract(operandOne, operandTwo);
     }
-    else if (operator == '*'){
+    else if (operator === '*'){
         multiply(operandOne,operandTwo);
     }
-    else if (operator == '/'){
-        if (operandTwo == '0'){
+    else if (operator === '/'){
+        if (operandTwo === '0'){
             return 'ERROR DIVIDE BY 0'
         }
         else{
             divide(operandOne, operandTwo);
         }
     }
+    console.log(result);
 }
 let displayNum = '';
 mainLine.textContent = displayNum;
@@ -93,3 +106,81 @@ zeroBut.addEventListener('click', function() {
     displayNum += '0';
     mainLine.textContent = displayNum;
 });
+
+plusSign.addEventListener('click', function(){
+    if (tempArray.length == 2) {
+        tempArray.push(Number(displayNum));
+        operate(tempArray[0], tempArray[1], tempArray[2]);
+        tempArray = [];
+        displayNum = result
+        result = 0;
+    }
+    tempArray.push(Number(displayNum));
+    tempArray.push('+')
+    topLine.textContent = `${displayNum} +`;
+    displayNum = '0'
+    mainLine.textContent = displayNum;
+    displayNum= '';   
+})
+minusSign.addEventListener('click', function(){
+    if (tempArray.length == 2) {
+        tempArray.push(Number(displayNum));
+        operate(tempArray[0], tempArray[1], tempArray[2]);
+        tempArray = [];
+        displayNum = result
+        result = 0;
+    }
+    tempArray.push(Number(displayNum));
+    tempArray.push('-')
+    topLine.textContent = `${displayNum} -`;
+    displayNum = '0'
+    mainLine.textContent = displayNum;
+    displayNum= '';   
+})
+multiplySign.addEventListener('click', function(){
+    if (tempArray.length == 2) {
+        tempArray.push(Number(displayNum));
+        operate(tempArray[0], tempArray[1], tempArray[2]);
+        tempArray = [];
+        displayNum = result
+        result = 0;
+    }
+    tempArray.push(Number(displayNum));
+    tempArray.push('*')
+    topLine.textContent = `${displayNum} *`;
+    displayNum = '0'
+    mainLine.textContent = displayNum;
+    displayNum= '';   
+})
+divideSign.addEventListener('click', function(){
+    if (tempArray.length == 2) {
+        tempArray.push(Number(displayNum));
+        operate(tempArray[0], tempArray[1], tempArray[2]);
+        tempArray = [];
+        displayNum = result
+        result = 0;
+    }
+    tempArray.push(Number(displayNum));
+    tempArray.push('/')
+    topLine.textContent = `${displayNum} /`;
+    displayNum = '0'
+    mainLine.textContent = displayNum;
+    displayNum= '';   
+})
+equalsBut.addEventListener('click', function(){
+    tempArray.push(Number(displayNum));
+    operate(tempArray[0], tempArray[1], tempArray[2]);
+    tempArray = [];
+    displayNum = result
+    result = 0;
+    mainLine.textContent = displayNum;
+})
+clear.addEventListener('click', function(){
+    tempArray = [];
+    displayNum = '';
+    mainLine.textContent= '';
+    topLine.textContent= '';
+})
+
+
+
