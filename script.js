@@ -168,6 +168,7 @@ divideSign.addEventListener('click', function(){
     displayNum= '';   
 })
 equalsBut.addEventListener('click', function(){
+    if (tempArray.length == 2){
     tempArray.push(Number(displayNum));
     operate(tempArray[0], tempArray[1], tempArray[2]);
     topLine.textContent = `${tempArray[0]} ${tempArray[1]} ${tempArray[2]}`
@@ -175,12 +176,18 @@ equalsBut.addEventListener('click', function(){
     displayNum = result
     result = 0;
     mainLine.textContent = displayNum;
+    }
 })
 clear.addEventListener('click', function(){
     tempArray = [];
     displayNum = '';
     mainLine.textContent= '';
     topLine.textContent= '';
+})
+del.addEventListener('click', function(){
+    displayNum = '0';
+    mainLine.textContent = displayNum;
+    displayNum = '';
 })
 
 
