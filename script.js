@@ -170,6 +170,7 @@ divideSign.addEventListener('click', function(){
 equalsBut.addEventListener('click', function(){
     tempArray.push(Number(displayNum));
     operate(tempArray[0], tempArray[1], tempArray[2]);
+    topLine.textContent = `${tempArray[0]} ${tempArray[1]} ${tempArray[2]}`
     tempArray = [];
     displayNum = result
     result = 0;
